@@ -4,7 +4,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<GridPane alignment="center" hgap="10" prefHeight="391.0" prefWidth="474.0" vgap="10" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.grafredactor.HelloController">
+<GridPane alignment="CENTER" xmlns:fx="http://javafx.com/fxml"
+          fx:controller="com.example.grafredactor.HelloController">
     <columnConstraints>
         <ColumnConstraints />
     </columnConstraints>
@@ -20,6 +21,8 @@
                         <Button mnemonicParsing="false" onAction="#lastik" text="Ластик" />
                         <Button mnemonicParsing="false" onAction="#save" text="Сохранить" />
                         <Button mnemonicParsing="false" onAction="#open" text="Загрузить" />
+                        <Button mnemonicParsing="false" onAction="#clearCanvas" text="Очистить" />
+                        <Button mnemonicParsing="false" onAction="#undo" text="Отменить" />
                         <Slider fx:id="sl" onDragDetected="#click2" />
                     </children>
                 </FlowPane>
@@ -28,7 +31,6 @@
                         <Canvas fx:id="canvas" height="285.0" onMouseClicked="#clik_canvas" onMouseDragged="#print" width="386.0" />
                     </children></FlowPane>
                 <ColorPicker fx:id="cp" layoutX="29.0" layoutY="356.0" onAction="#act" />
-            </children>
-        </Pane>
+            </children></Pane>
     </children>
 </GridPane>

@@ -13,7 +13,6 @@ public class Model {
 
     }
 
-
     public int getPointCount() {
         return p.size();//возвращает размер листа с точками
     }
@@ -35,12 +34,12 @@ public class Model {
         p.clear();///полностью очишает массив с точками
     }
 
-
     public int serchPoint(int x, int y){
-        int index = -1;//ищем точку по координатм
+        int index = -1;//ищем точку по координатам
         for (int i = 0; i < this.p.size(); i++){
             if (this.p.get(i).x == x && this.p.get(i).y == y) index = i;
         }
         return index;
     }
+
 }

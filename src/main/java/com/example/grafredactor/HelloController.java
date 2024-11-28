@@ -29,6 +29,7 @@ public class HelloController {
     private Canvas canvas;
     private Model model;
     private Points points;
+    private CanvasStateManager canvasStateManager;
 
     private Image bgImage;
     private double bgX, bgY, bgW = 300.0, bgH = 300.0;
@@ -39,6 +40,7 @@ public class HelloController {
     public void initialize() {
         GraphicsContext gc = canvas.getGraphicsContext2D();
         model = new Model();
+        canvasStateManager = new CanvasStateManager(canvas);
         SliderTol();
     }
 
@@ -56,6 +58,7 @@ public class HelloController {
         for (int i = 0; i < model.getPointCount(); i++) {
             gc.fillOval(model.getPoint(i).getX(), model.getPoint(i).getY(), model.getPoint(i).getwP(), model.getPoint(i).gethP());
         }
+        canvasStateManager.saveState();
     }
 
     public void open(ActionEvent actionEvent) {
@@ -71,6 +74,7 @@ public class HelloController {
         if (loadImageFile != null) {
             System.out.println("Процесс открытия файла");
             initDraw(gc, loadImageFile);
+            canvasStateManager.saveState();
         }
     }
 
@@ -89,6 +93,7 @@ public class HelloController {
         for (int i = 0; i < model.getPointCount(); i++) {
             gc.fillOval(model.getPoint(i).getX(), model.getPoint(i).getY(), model.getPoint(i).getwP(), model.getPoint(i).gethP());
         }
+        canvasStateManager.saveState();
     }
 
     public void print(MouseEvent mouseEvent) { // для непрерывной линии
@@ -123,6 +128,7 @@ public class HelloController {
         for (int i = 0; i < model.getPointCount(); i++) {
             gc.clearRect(model.getPoint(i).getX(), model.getPoint(i).getY(), model.getPoint(i).getwP(), model.getPoint(i).gethP());
         }
+        canvasStateManager.saveState();
     }
 
     public void kar(ActionEvent actionEvent) {
@@ -132,6 +138,7 @@ public class HelloController {
         for (int i = 0; i < model.getPointCount(); i++) {
             gc.clearRect(model.getPoint(i).getX(), model.getPoint(i).getY(), model.getPoint(i).getwP(), model.getPoint(i).gethP());
         }
+        canvasStateManager.saveState();
     }
 
     public void act(ActionEvent actionEvent) {
@@ -141,5 +148,13 @@ public class HelloController {
 
     public void click2(MouseEvent mouseEvent) {
         // Дополнительная логика для второго клика, если необходимо
+    }
+
+    public void clearCanvas(ActionEvent actionEvent) {
+        canvasStateManager.clearCanvas(); // Очистка холста
+    }
+
+    public void undo(ActionEvent actionEvent) {
+        canvasStateManager.undo(); // Возврат к предыдущему состоянию
     }
 }
