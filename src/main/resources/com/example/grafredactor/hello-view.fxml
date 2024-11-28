@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.canvas.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane alignment="center" hgap="10" prefHeight="391.0" prefWidth="474.0" vgap="10" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.grafredactor.HelloController">
+    <columnConstraints>
+        <ColumnConstraints />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints />
+    </rowConstraints>
+    <children>
+        <Pane prefHeight="395.0" prefWidth="481.0">
+            <children>
+                <FlowPane layoutY="321.0" prefHeight="35.0" prefWidth="433.0">
+                    <children>
+                        <Button fx:id="NewLine" mnemonicParsing="false" onAction="#kar" text="Карандаш" />
+                        <Button mnemonicParsing="false" onAction="#lastik" text="Ластик" />
+                        <Button mnemonicParsing="false" onAction="#save" text="Сохранить" />
+                        <Button mnemonicParsing="false" onAction="#open" text="Загрузить" />
+                        <Slider fx:id="sl" onDragDetected="#click2" />
+                    </children>
+                </FlowPane>
+                <FlowPane prefHeight="317.0" prefWidth="433.0">
+                    <children>
+                        <Canvas fx:id="canvas" height="285.0" onMouseClicked="#clik_canvas" onMouseDragged="#print" width="386.0" />
+                    </children></FlowPane>
+                <ColorPicker fx:id="cp" layoutX="29.0" layoutY="356.0" onAction="#act" />
+            </children>
+        </Pane>
+    </children>
+</GridPane>
