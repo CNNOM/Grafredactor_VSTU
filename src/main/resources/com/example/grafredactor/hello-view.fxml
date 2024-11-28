@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.*?>
 <?import javafx.scene.canvas.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<GridPane alignment="center" hgap="10" prefHeight="391.0" prefWidth="474.0" vgap="10" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.grafredactor.HelloController">
+<GridPane alignment="center" hgap="10" prefHeight="391.0" prefWidth="474.0" vgap="10" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.grafredactor.HelloController">
     <columnConstraints>
         <ColumnConstraints />
     </columnConstraints>
@@ -12,22 +13,27 @@
         <RowConstraints />
     </rowConstraints>
     <children>
-        <Pane prefHeight="395.0" prefWidth="481.0">
+        <Pane prefHeight="452.0" prefWidth="523.0">
             <children>
-                <FlowPane layoutY="321.0" prefHeight="35.0" prefWidth="433.0">
+                <FlowPane layoutX="21.0" prefHeight="35.0" prefWidth="433.0" />
+                <FlowPane layoutX="121.0" layoutY="37.0" prefHeight="317.0" prefWidth="79.0">
                     <children>
-                        <Button fx:id="NewLine" mnemonicParsing="false" onAction="#kar" text="Карандаш" />
-                        <Button mnemonicParsing="false" onAction="#lastik" text="Ластик" />
-                        <Button mnemonicParsing="false" onAction="#save" text="Сохранить" />
-                        <Button mnemonicParsing="false" onAction="#open" text="Загрузить" />
-                        <Slider fx:id="sl" onDragDetected="#click2" />
-                    </children>
-                </FlowPane>
-                <FlowPane prefHeight="317.0" prefWidth="433.0">
-                    <children>
-                        <Canvas fx:id="canvas" height="285.0" onMouseClicked="#clik_canvas" onMouseDragged="#print" width="386.0" />
+                        <Canvas fx:id="canvas" height="286.0" onMouseClicked="#clik_canvas" onMouseDragged="#print" width="314.0" />
                     </children></FlowPane>
-                <ColorPicker fx:id="cp" layoutX="29.0" layoutY="356.0" onAction="#act" />
+            <Group layoutX="11.0" layoutY="37.0">
+               <children>
+                  <Group>
+                     <children>
+                              <Button layoutX="3.0" layoutY="48.0" mnemonicParsing="false" onAction="#save" style="-fx-background-radius: 10;" text="Сохранить" />
+                              <Button fx:id="NewLine" layoutX="4.0" mnemonicParsing="false" onAction="#kar" text="Карандаш" />
+                              <Button layoutX="3.0" layoutY="23.0" mnemonicParsing="false" onAction="#lastik" text="Ластик" />
+                              <Button layoutX="5.0" layoutY="73.0" mnemonicParsing="false" onAction="#open" text="Загрузить" />
+                              <Slider fx:id="sl" layoutX="4.0" layoutY="98.0" onDragDetected="#click2" />
+                     </children>
+                  </Group>
+                      <ColorPicker fx:id="cp" layoutY="117.0" onAction="#act" />
+               </children>
+            </Group>
             </children>
         </Pane>
     </children>
