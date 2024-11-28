@@ -34,6 +34,7 @@ public class Model {
         p.clear();///полностью очишает массив с точками
     }
 
+
     public int serchPoint(int x, int y){
         int index = -1;//ищем точку по координатам
         for (int i = 0; i < this.p.size(); i++){
