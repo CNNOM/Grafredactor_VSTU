@@ -15,6 +15,7 @@ public class HelloApplication extends Application {
         stage.setTitle("Графический редактор!");
         stage.setScene(scene);
         stage.show();
+
     }
 
     public static void main(String[] args) {
