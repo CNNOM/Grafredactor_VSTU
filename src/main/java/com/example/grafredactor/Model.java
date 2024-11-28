@@ -11,6 +11,7 @@ public class Model {
         this.pointCount = pointCount;
        this.p = new ArrayList<Points>();
 
+
     }
 
 
