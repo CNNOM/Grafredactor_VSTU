@@ -24,17 +24,27 @@ public class HelloController {
     @FXML
     private ColorPicker cp;
     @FXML
+    private Button toggleButton;
+    @FXML
+    private Button NewLine;
+    @FXML
+    private Button Eraser;
+    @FXML
+    private Button Save;
+    @FXML
+    private Button Download;
+    @FXML
     private Slider sl;
     @FXML
     private Canvas canvas;
     private Model model;
     private Points points;
 
+
+
     private Image bgImage;
     private double bgX, bgY, bgW = 300.0, bgH = 300.0;
     private String flag;
-    @FXML
-    private Button NewLine;
 
     public void initialize() {
         GraphicsContext gc = canvas.getGraphicsContext2D();
@@ -142,4 +152,27 @@ public class HelloController {
     public void click2(MouseEvent mouseEvent) {
         // Дополнительная логика для второго клика, если необходимо
     }
+
+    public void toggleLanguage(ActionEvent actionEvent) {
+        String currentText = toggleButton.getText();
+
+        if ("ENG".equals(currentText)) {
+            toggleButton.setText("RU");
+            NewLine.setText("Карандаш");
+            Eraser.setText("Ластик");
+            Save.setText("Сохранить");
+            Download.setText("Загрузить");
+            System.out.println("Language set to Russian");
+            // Ваш код для переключения на русский язык
+        } else if ("RU".equals(currentText)) {
+            toggleButton.setText("ENG");
+            NewLine.setText("NewLine");
+            Eraser.setText("Eraser");
+            Save.setText("Save");
+            Download.setText("Download");
+            System.out.println("Language set to English");
+            // Ваш код для переключения на английский язык
+        }
+    }
+
 }

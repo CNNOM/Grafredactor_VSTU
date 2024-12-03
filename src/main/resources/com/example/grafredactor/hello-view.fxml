@@ -14,12 +14,13 @@
     <children>
         <Pane prefHeight="395.0" prefWidth="481.0">
             <children>
+                <Button layoutX="460.0" layoutY="0.0" fx:id="toggleButton" onAction="#toggleLanguage" text="RU" />
                 <FlowPane layoutY="321.0" prefHeight="35.0" prefWidth="433.0">
                     <children>
                         <Button fx:id="NewLine" mnemonicParsing="false" onAction="#kar" text="Карандаш" />
-                        <Button mnemonicParsing="false" onAction="#lastik" text="Ластик" />
-                        <Button mnemonicParsing="false" onAction="#save" text="Сохранить" />
-                        <Button mnemonicParsing="false" onAction="#open" text="Загрузить" />
+                        <Button fx:id="Eraser" mnemonicParsing="false" onAction="#lastik" text="Ластик" />
+                        <Button fx:id="Save" mnemonicParsing="false" onAction="#save" text="Сохранить" />
+                        <Button fx:id="Download" mnemonicParsing="false" onAction="#open" text="Загрузить" />
                         <Slider fx:id="sl" onDragDetected="#click2" />
                     </children>
                 </FlowPane>
@@ -28,7 +29,9 @@
                         <Canvas fx:id="canvas" height="285.0" onMouseClicked="#clik_canvas" onMouseDragged="#print" width="386.0" />
                     </children></FlowPane>
                 <ColorPicker fx:id="cp" layoutX="29.0" layoutY="356.0" onAction="#act" />
+
             </children>
         </Pane>
     </children>
+
 </GridPane>
