@@ -53,6 +53,7 @@ public class HelloController {
         flag = NewLine.getId();
     }
 
+
     public void clik_canvas(MouseEvent mouseEvent) {
         GraphicsContext gc = canvas.getGraphicsContext2D();
         model.addPoint(new Points((int) mouseEvent.getX(), (int) mouseEvent.getY()));
