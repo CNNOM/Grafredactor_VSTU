@@ -24,7 +24,7 @@ public class Points extends Point {
     }
 
     public Points(int x, int y){
-      super(x,y);
+        super(x,y);
 
         this.color=Color.BLACK;
         this.wp=wp;
@@ -48,13 +48,13 @@ public class Points extends Point {
     public void sethP(double hP) {
         this.hp = hp;
     }
-public Points(int x, int y, Color color, double wp, double hp) {
+    public Points(int x, int y, Color color, double wp, double hp) {
         super(x,y);
         this.color=Color.BLACK;
-    this.wp=wp;
-    this.hp=hp;
+        this.wp=wp;
+        this.hp=hp;
 
-}
+    }
     public  void  setSizePoint(double wp,double hp)
     {
         this.wp=wp;
