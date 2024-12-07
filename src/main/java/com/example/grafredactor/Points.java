@@ -10,8 +10,6 @@ public class Points extends Point {
         this.color = color;
     }
 
-
-
     public Points(){
         this.color=Color.BLACK;
         this.wp=5;
