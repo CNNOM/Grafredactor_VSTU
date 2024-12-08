@@ -48,11 +48,19 @@ public class HelloController {
     private String flag;
 
     private Stack<Model> history = new Stack<>();
+    private boolean isDrawing = false; // Флаг для отслеживания рисования
+    private boolean isErasing = false; // Флаг для отслеживания стирания
 
     public void initialize() {
         GraphicsContext gc = canvas.getGraphicsContext2D();
         model = new Model();
         SliderTol();
+
+        // Добавляем обработчики событий для мыши
+        canvas.setOnMousePressed(this::startDrawing);
+        canvas.setOnMouseReleased(this::stopDrawing);
+        canvas.setOnMouseDragged(this::drawOnCanvas);
+        canvas.setOnMouseMoved(this::trackMouse);
     }
 
     public void SliderTol() { // толщина линии
@@ -177,6 +185,7 @@ public class HelloController {
                 gc.clearRect(point.getX(), point.getY(), point.getwP(), point.gethP());
             }
         }
+        setErasingMode(actionEvent); // Устанавливаем режим стирания
     }
 
     public void kar(ActionEvent actionEvent) {
@@ -238,5 +247,89 @@ public class HelloController {
             GraphicsContext gc = canvas.getGraphicsContext2D();
             gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         }
+    }
+
+    private void startDrawing(MouseEvent mouseEvent) {
+        isDrawing = true;
+        isErasing = false;
+        updateDrawingStatus();
+        drawOnCanvas(mouseEvent);
+    }
+
+    private void stopDrawing(MouseEvent mouseEvent) {
+        isDrawing = false;
+        isErasing = false;
+        updateDrawingStatus();
+    }
+
+    private void drawOnCanvas(MouseEvent mouseEvent) {
+        if (isDrawing || isErasing) {
+            GraphicsContext gc = canvas.getGraphicsContext2D();
+            Points points = new Points((int) mouseEvent.getX(), (int) mouseEvent.getY());
+            if (isDrawing) {
+                points.setSizePoint(sl.getValue(), sl.getValue());
+                if (model.getActionCount() > 0 && model.getAction(model.getActionCount() - 1).getColor().equals(gc.getFill())) {
+                    model.getAction(model.getActionCount() - 1).addPoint(points);
+                } else {
+                    Action action = new Action((Color) gc.getFill());
+                    action.addPoint(points);
+                    history.push(new Model(model)); // Сохраняем текущее состояние модели с помощью конструктора копирования
+                    model.addAction(action);
+                }
+                gc.fillOval(points.getX(), points.getY(), points.getwP(), points.gethP()); // Рисуем новую точку
+            } else if (isErasing) {
+                // Удаляем все точки в области действия ластика
+                boolean pointsRemoved = false;
+                for (int i = model.getActionCount() - 1; i >= 0; i--) {
+                    Action action = model.getAction(i);
+                    for (Points point : action.getPoints()) {
+                        if (isPointInEraserArea(point, points)) {
+                            action.getPoints().remove(point);
+                            pointsRemoved = true;
+                        }
+                    }
+                    if (pointsRemoved) {
+                        history.push(new Model(model)); // Сохраняем текущее состояние модели с помощью конструктора копирования
+                    }
+                    if (action.getPoints().isEmpty()) {
+                        model.removeLastAction();
+                    }
+                }
+                update(model);
+            }
+        }
+    }
+
+    private void trackMouse(MouseEvent mouseEvent) {
+        System.out.println("Координаты позиции курсора: (" + mouseEvent.getX() + ", " + mouseEvent.getY() + ")");
+        trackColor(mouseEvent);
+        // Здесь можно добавить дополнительную логику для отслеживания координат мыши
+    }
+
+    private void trackColor(MouseEvent mouseEvent) {
+        WritableImage snapshot = canvas.snapshot(new SnapshotParameters(), null);
+        int x = (int) mouseEvent.getX();
+        int y = (int) mouseEvent.getY();
+        if (x >= 0 && x < snapshot.getWidth() && y >= 0 && y < snapshot.getHeight()) {
+            javafx.scene.paint.Color color = snapshot.getPixelReader().getColor(x, y);
+            System.out.println("Цвет в координатах (" + x + ", " + y + "): " + color);
+        }
+    }
+
+    private void updateDrawingStatus() {
+        if (isDrawing) {
+            System.out.println("Рисует");
+        } else if (isErasing) {
+            System.out.println("Стирает");
+        } else {
+            System.out.println("Не рисует и не стирает");
+        }
+    }
+
+
+    public void setErasingMode(ActionEvent actionEvent) {
+        isErasing = true;
+        isDrawing = false;
+        updateDrawingStatus();
     }
 }
