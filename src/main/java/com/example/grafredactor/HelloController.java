@@ -8,6 +8,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
@@ -40,6 +41,10 @@ public class HelloController {
     private Slider sl;
     @FXML
     private Canvas canvas;
+    @FXML
+    private Label slezhy;
+    @FXML
+    private Label slezhyXY;
     private Model model;
     private Points points;
 
@@ -301,7 +306,7 @@ public class HelloController {
     }
 
     private void trackMouse(MouseEvent mouseEvent) {
-        System.out.println("Координаты позиции курсора: (" + mouseEvent.getX() + ", " + mouseEvent.getY() + ")");
+        slezhyXY.setText("Координаты позиции курсора: (" + mouseEvent.getX() + ", " + mouseEvent.getY() + ")");
         trackColor(mouseEvent);
         // Здесь можно добавить дополнительную логику для отслеживания координат мыши
     }
@@ -312,17 +317,17 @@ public class HelloController {
         int y = (int) mouseEvent.getY();
         if (x >= 0 && x < snapshot.getWidth() && y >= 0 && y < snapshot.getHeight()) {
             javafx.scene.paint.Color color = snapshot.getPixelReader().getColor(x, y);
-            System.out.println("Цвет в координатах (" + x + ", " + y + "): " + color);
+            slezhy.setText("Цвет в координатах (" + x + ", " + y + "): " + color);
         }
     }
 
     private void updateDrawingStatus() {
         if (isDrawing) {
-            System.out.println("Рисует");
+            slezhy.setText("Рисует");
+            slezhyXY.setText(null);
         } else if (isErasing) {
-            System.out.println("Стирает");
-        } else {
-            System.out.println("Не рисует и не стирает");
+            slezhy.setText("Стирает");
+            slezhyXY.setText(null);
         }
     }
 
