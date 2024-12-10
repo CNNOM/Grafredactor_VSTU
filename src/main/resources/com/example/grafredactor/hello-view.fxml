@@ -14,20 +14,22 @@
     <children>
         <Pane prefHeight="395.0" prefWidth="481.0">
             <children>
-                <FlowPane layoutY="321.0" prefHeight="35.0" prefWidth="433.0">
+                <FlowPane layoutY="321.0" prefHeight="35.0" prefWidth="433.0" hgap="3" vgap="3">
                     <children>
                         <Button fx:id="NewLine" mnemonicParsing="false" onAction="#kar" text="Карандаш" />
                         <Button mnemonicParsing="false" onAction="#lastik" text="Ластик" />
                         <Button mnemonicParsing="false" onAction="#save" text="Сохранить" />
                         <Button mnemonicParsing="false" onAction="#open" text="Загрузить" />
                         <Slider fx:id="sl" onDragDetected="#click2" />
+                        <ColorPicker fx:id="cp" onAction="#act" />
+                        <ComboBox fx:id="shapeType" prefWidth="120.0" />
                     </children>
                 </FlowPane>
                 <FlowPane prefHeight="317.0" prefWidth="433.0">
                     <children>
-                        <Canvas fx:id="canvas" height="285.0" onMouseClicked="#clik_canvas" onMouseDragged="#print" width="386.0" />
-                    </children></FlowPane>
-                <ColorPicker fx:id="cp" layoutX="29.0" layoutY="356.0" onAction="#act" />
+                        <Canvas fx:id="canvas" height="285.0" width="386.0" />
+                    </children>
+                </FlowPane>
             </children>
         </Pane>
     </children>

@@ -8,6 +8,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
@@ -27,19 +28,29 @@ public class HelloController {
     private Slider sl;
     @FXML
     private Canvas canvas;
-    private Model model;
-    private Points points;
+    @FXML
+    private ComboBox<String> shapeType;
+    @FXML
+    private Button NewLine;
 
+    private Model model;
     private Image bgImage;
     private double bgX, bgY, bgW = 300.0, bgH = 300.0;
     private String flag;
-    @FXML
-    private Button NewLine;
+    private boolean isErasing = false;
 
     public void initialize() {
         GraphicsContext gc = canvas.getGraphicsContext2D();
         model = new Model();
         SliderTol();
+
+        // Добавляем варианты фигур и устанавливаем значения по умолчанию
+        shapeType.getItems().addAll("Круг", "Квадрат", "Треугольник", "Точка");
+        shapeType.setValue("Круг");
+
+        // Устанавливаем обработчики событий
+        canvas.setOnMouseClicked(this::handleMouseClick);
+        canvas.setOnMouseDragged(this::handleMouseDrag);
     }
 
     public void SliderTol() { // толщина линии
@@ -49,13 +60,53 @@ public class HelloController {
         flag = NewLine.getId();
     }
 
-    public void clik_canvas(MouseEvent mouseEvent) {
-        GraphicsContext gc = canvas.getGraphicsContext2D();
-        model = new Model();
-        model.addPoint(new Points((int) mouseEvent.getX(), (int) mouseEvent.getY()));
-        for (int i = 0; i < model.getPointCount(); i++) {
-            gc.fillOval(model.getPoint(i).getX(), model.getPoint(i).getY(), model.getPoint(i).getwP(), model.getPoint(i).gethP());
+    private void handleMouseClick(MouseEvent mouseEvent) {
+        if (isErasing) {
+            erase(mouseEvent);
+        } else {
+            drawShape(mouseEvent);
         }
+    }
+
+    private void handleMouseDrag(MouseEvent mouseEvent) {
+        if (isErasing) {
+            erase(mouseEvent);
+        } else {
+            drawShape(mouseEvent);
+        }
+    }
+
+    private void drawShape(MouseEvent mouseEvent) {
+        GraphicsContext gc = canvas.getGraphicsContext2D();
+        Color selectedColor = cp.getValue();
+        double size = sl.getValue();
+
+        // Создаём фигуру через фабрику
+        Shape shape = ShapeFactory.createShape(
+                shapeType.getValue(),
+                mouseEvent.getX(),
+                mouseEvent.getY(),
+                size,
+                selectedColor
+        );
+
+        // Добавляем фигуру в модель и рисуем её
+        model.addShape(shape);
+        shape.draw(gc);
+    }
+
+    private void erase(MouseEvent mouseEvent) {
+        GraphicsContext gc = canvas.getGraphicsContext2D();
+        double eraserSize = sl.getValue();
+        gc.setFill(Color.WHITESMOKE);
+
+        // Стираем область
+        gc.fillOval(
+                mouseEvent.getX() - eraserSize / 2,
+                mouseEvent.getY() - eraserSize / 2,
+                eraserSize,
+                eraserSize
+        );
     }
 
     public void open(ActionEvent actionEvent) {
@@ -70,6 +121,9 @@ public class HelloController {
         File loadImageFile = fileChooser.showOpenDialog(canvas.getScene().getWindow());
         if (loadImageFile != null) {
             System.out.println("Процесс открытия файла");
+            gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+
+            update(model);
             initDraw(gc, loadImageFile);
         }
     }
@@ -86,21 +140,17 @@ public class HelloController {
 
     public void update(Model model) {
         GraphicsContext gc = canvas.getGraphicsContext2D();
-        for (int i = 0; i < model.getPointCount(); i++) {
-            gc.fillOval(model.getPoint(i).getX(), model.getPoint(i).getY(), model.getPoint(i).getwP(), model.getPoint(i).gethP());
-        }
-    }
+        gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
-    public void print(MouseEvent mouseEvent) { // для непрерывной линии
-        GraphicsContext gc = canvas.getGraphicsContext2D();
-        Points points = new Points((int) mouseEvent.getX(), (int) mouseEvent.getY());
-        if (flag.equals(NewLine.getId())) {
-            points.setSizePoint(sl.getValue(), sl.getValue());
-            model.addPoint(points);
-        } else {
-            model.removePoint(points);
+        // Рисуем фоновое изображение, если оно есть
+        if (bgImage != null) {
+            gc.drawImage(bgImage, bgX, bgY, bgW, bgH);
         }
-        update(model);
+
+        // Рисуем все фигуры
+        for (Shape shape : model.getShapes()) {
+            shape.draw(gc);
+        }
     }
 
     public void save(ActionEvent actionEvent) throws IOException {
@@ -117,21 +167,11 @@ public class HelloController {
     }
 
     public void lastik(ActionEvent actionEvent) {
-        GraphicsContext gc = canvas.getGraphicsContext2D();
-        model = new Model();
-        gc.setFill(Color.WHITESMOKE);
-        for (int i = 0; i < model.getPointCount(); i++) {
-            gc.clearRect(model.getPoint(i).getX(), model.getPoint(i).getY(), model.getPoint(i).getwP(), model.getPoint(i).gethP());
-        }
+        isErasing = true;
     }
 
     public void kar(ActionEvent actionEvent) {
-        GraphicsContext gc = canvas.getGraphicsContext2D();
-        model = new Model();
-        gc.setFill(Color.BLACK);
-        for (int i = 0; i < model.getPointCount(); i++) {
-            gc.clearRect(model.getPoint(i).getX(), model.getPoint(i).getY(), model.getPoint(i).getwP(), model.getPoint(i).gethP());
-        }
+        isErasing = false;
     }
 
     public void act(ActionEvent actionEvent) {
