@@ -4,36 +4,32 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Model {
-    private List<Action> actions;
+    private ArrayList<Shape> shapes; // Список фигур
 
     public Model() {
-        this.actions = new ArrayList<>();
+        this.shapes = new ArrayList<>();
     }
 
-    // Конструктор копирования
-    public Model(Model other) {
-        this.actions = new ArrayList<>(other.actions);
+    public int getShapeCount() {
+        return shapes.size(); // Возвращает количество фигур
     }
 
-    public int getActionCount() {
-        return actions.size();
+    public void addShape(Shape shape) {
+        shapes.add(shape); // Добавляет фигуру в список
     }
 
-    public void addAction(Action action) {
-        actions.add(action);
+    public void removeShape(Shape shape) {
+        shapes.remove(shape); // Удаляет фигуру из списка
     }
 
-    public void removeLastAction() {
-        if (!actions.isEmpty()) {
-            actions.remove(actions.size() - 1);
-        }
+    public Shape getShape(int index) {
+        return shapes.get(index); // Возвращает фигуру по индексу
     }
 
-    public Action getAction(int i) {
-        return this.actions.get(i);
+    public void clearShapes() {
+        shapes.clear(); // Очищает список фигур
     }
-
-    public void deleteArray() {
-        actions.clear();
+    public ArrayList<Shape> getShapes() {
+        return shapes; // Возвращает список всех фигур
     }
 }
