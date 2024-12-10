@@ -1,6 +1,7 @@
 package com.example.grafredactor;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Model {
     private ArrayList<Shape> shapes; // Список фигур

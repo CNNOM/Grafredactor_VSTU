@@ -20,10 +20,23 @@ import javafx.stage.FileChooser;
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
+import java.util.Stack;
 
 public class HelloController {
     @FXML
     private ColorPicker cp;
+    @FXML
+    private Button toggleButton;
+    @FXML
+    private Button NewLine;
+    @FXML
+    private Button Eraser;
+    @FXML
+    private Button Save;
+    @FXML
+    private Button Download;
+    @FXML
+    private Button Undo;
     @FXML
     private Slider sl;
     @FXML
@@ -38,6 +51,7 @@ public class HelloController {
     private double bgX, bgY, bgW = 300.0, bgH = 300.0;
     private String flag;
     private boolean isErasing = false;
+    private Stack<Model> history = new Stack<>();
 
     public void initialize() {
         GraphicsContext gc = canvas.getGraphicsContext2D();
@@ -153,6 +167,12 @@ public class HelloController {
         }
     }
 
+    private boolean isPointInEraserArea(Points point, Points eraserPoint) {
+        double eraserRadius = sl.getValue() / 2;
+        return Math.abs(point.getX() - eraserPoint.getX()) <= eraserRadius &&
+                Math.abs(point.getY() - eraserPoint.getY()) <= eraserRadius;
+    }
+
     public void save(ActionEvent actionEvent) throws IOException {
         WritableImage wim = new WritableImage(700, 700);
         SnapshotParameters spa = new SnapshotParameters();
@@ -181,5 +201,30 @@ public class HelloController {
 
     public void click2(MouseEvent mouseEvent) {
         // Дополнительная логика для второго клика, если необходимо
+    }
+
+    public void toggleLanguage(ActionEvent actionEvent) {
+        String currentText = toggleButton.getText();
+        RuEng ruEng = new RuEng(toggleButton, NewLine, Eraser, Save, Download, Undo, cp); // Передаем ColorPicker
+        if ("ENG".equals(currentText)) {
+            ruEng.Eng();
+        } else if ("RU".equals(currentText)) {
+            ruEng.Ru();
+        }
+    }
+
+    public void undo(ActionEvent actionEvent) {
+        undo();
+    }
+
+    public void undo() {
+        if (!history.isEmpty()) {
+            model = history.pop(); // Восстанавливаем предыдущее состояние модели
+            update(model); // Обновляем холст с восстановленным состоянием модели
+        } else {
+            // Если история пуста, очищаем холст
+            GraphicsContext gc = canvas.getGraphicsContext2D();
+            gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+        }
     }
 }

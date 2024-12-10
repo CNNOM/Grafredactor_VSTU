@@ -17,9 +17,10 @@
                 <FlowPane layoutY="321.0" prefHeight="35.0" prefWidth="433.0" hgap="3" vgap="3">
                     <children>
                         <Button fx:id="NewLine" mnemonicParsing="false" onAction="#kar" text="Карандаш" />
-                        <Button mnemonicParsing="false" onAction="#lastik" text="Ластик" />
-                        <Button mnemonicParsing="false" onAction="#save" text="Сохранить" />
-                        <Button mnemonicParsing="false" onAction="#open" text="Загрузить" />
+                        <Button fx:id="Eraser" mnemonicParsing="false" onAction="#lastik" text="Ластик" />
+                        <Button fx:id="Save" mnemonicParsing="false" onAction="#save" text="Сохранить" />
+                        <Button fx:id="Download" mnemonicParsing="false" onAction="#open" text="Загрузить" />
+                        <Button fx:id="Undo" mnemonicParsing="false" onAction="#undo" text="Отмена" />
                         <Slider fx:id="sl" onDragDetected="#click2" />
                         <ColorPicker fx:id="cp" onAction="#act" />
                         <ComboBox fx:id="shapeType" prefWidth="120.0" />
@@ -33,4 +34,5 @@
             </children>
         </Pane>
     </children>
+
 </GridPane>
