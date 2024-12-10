@@ -43,8 +43,7 @@ public class HelloController {
     private Canvas canvas;
     @FXML
     private ComboBox<String> shapeType;
-    @FXML
-    private Button NewLine;
+
 
     private Model model;
     private Image bgImage;
