@@ -33,6 +33,7 @@
                      <FlowPane.margin>
                         <Insets left="155.0" top="5.0" />
                      </FlowPane.margin></Label>
+                  <Label fx:id="slezhyDrawOrNot" />
                     </children>
                 </FlowPane>
                 <FlowPane prefHeight="317.0" prefWidth="433.0">

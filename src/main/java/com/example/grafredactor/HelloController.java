@@ -45,6 +45,8 @@ public class HelloController {
     private Label slezhy;
     @FXML
     private Label slezhyXY;
+    @FXML
+    private Label slezhyDrawOrNot;
     private Model model;
     private Points points;
 
@@ -323,12 +325,14 @@ public class HelloController {
 
     private void updateDrawingStatus() {
         if (isDrawing) {
-            slezhy.setText("Рисует");
-            slezhyXY.setText(null);
+            slezhyDrawOrNot.setText("Рисует");
         } else if (isErasing) {
-            slezhy.setText("Стирает");
-            slezhyXY.setText(null);
+            slezhyDrawOrNot.setText("Стирает");
+        } else {
+            slezhyDrawOrNot.setText("Водит мышью по экрану");
         }
+
+        canvas.setOnMouseMoved(this::trackMouse);
     }
 
 
