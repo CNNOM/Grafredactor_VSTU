@@ -203,25 +203,11 @@ public class HelloController {
 
     public void toggleLanguage(ActionEvent actionEvent) {
         String currentText = toggleButton.getText();
-
+        RuEng ruEng = new RuEng(toggleButton, NewLine, Eraser, Save, Download, Undo, cp); // Передаем ColorPicker
         if ("ENG".equals(currentText)) {
-            toggleButton.setText("RU");
-            NewLine.setText("Карандаш");
-            Eraser.setText("Ластик");
-            Save.setText("Сохранить");
-            Download.setText("Загрузить");
-            Undo.setText("Отмена"); // Обновляем текст кнопки "Undo"
-            System.out.println("Language set to Russian");
-            // Ваш код для переключения на русский язык
+            ruEng.Eng();
         } else if ("RU".equals(currentText)) {
-            toggleButton.setText("ENG");
-            NewLine.setText("NewLine");
-            Eraser.setText("Eraser");
-            Save.setText("Save");
-            Download.setText("Download");
-            Undo.setText("Undo"); // Обновляем текст кнопки "Undo"
-            System.out.println("Language set to English");
-            // Ваш код для переключения на английский язык
+            ruEng.Ru();
         }
     }
 
