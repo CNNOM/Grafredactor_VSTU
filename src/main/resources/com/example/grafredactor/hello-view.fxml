@@ -14,6 +14,7 @@
     <children>
         <Pane prefHeight="395.0" prefWidth="481.0">
             <children>
+                <Button layoutX="460.0" layoutY="0.0" fx:id="toggleButton" onAction="#toggleLanguage" text="RU" />
                 <FlowPane layoutY="321.0" prefHeight="35.0" prefWidth="433.0" hgap="3" vgap="3">
                     <children>
                         <Button fx:id="NewLine" mnemonicParsing="false" onAction="#kar" text="Карандаш" />
