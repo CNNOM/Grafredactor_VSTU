@@ -9,6 +9,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
@@ -47,6 +48,18 @@ public class HelloController {
     private ComboBox<String> shapeType;
     @FXML
     private ComboBox<String> eraserShapeType;
+    @FXML
+    private Label mouseCoordinatesLabel;
+    @FXML
+    private Label colorInCoordinatesLabel;
+    @FXML
+    private Label drawingStatusLabel;
+    @FXML
+    private Label shapeTypeLabel; // Метка для выбора формы карандаша
+    @FXML
+    private Label eraserShapeTypeLabel; // Метка для выбора формы ластика
+    @FXML
+    private Label eraserSizeLabel; // Метка для выбора размера ластика
 
     private String eraserShape = "Круг"; // Форма ластика по умолчанию
     private Model model;
@@ -57,6 +70,7 @@ public class HelloController {
     private Stack<Model> history = new Stack<>();
 
     public void initialize() {
+
         GraphicsContext gc = canvas.getGraphicsContext2D();
         model = new Model();
         SliderTol();
@@ -127,6 +141,7 @@ public class HelloController {
         // Выбираем форму ластика
         switch (eraserShape) {
             case "Круг":
+            case "Circle":
                 gc.fillOval(
                         mouseEvent.getX() - eraserSize / 2,
                         mouseEvent.getY() - eraserSize / 2,
@@ -135,6 +150,7 @@ public class HelloController {
                 );
                 break;
             case "Квадрат":
+            case "Square":
                 gc.fillRect(
                         mouseEvent.getX() - eraserSize / 2,
                         mouseEvent.getY() - eraserSize / 2,
@@ -143,12 +159,14 @@ public class HelloController {
                 );
                 break;
             case "Треугольник":
+            case "Triangle":
                 gc.fillPolygon(
                         new double[]{mouseEvent.getX(), mouseEvent.getX() - eraserSize / 2, mouseEvent.getX() + eraserSize / 2},
                         new double[]{mouseEvent.getY() - eraserSize / 2, mouseEvent.getY() + eraserSize / 2, mouseEvent.getY() + eraserSize / 2},
                         3
                 );
                 break;
+            case "Point":
             case "Точка":
                 gc.fillRect(
                         mouseEvent.getX(),
@@ -242,7 +260,7 @@ public class HelloController {
 
     public void toggleLanguage(ActionEvent actionEvent) {
         String currentText = toggleButton.getText();
-        RuEng ruEng = new RuEng(toggleButton, NewLine, Eraser, Save, Download, Undo, cp); // Передаем ColorPicker
+        RuEng ruEng = new RuEng(toggleButton, NewLine, Eraser, Save, Download, Undo, shapeType, eraserShapeType, mouseCoordinatesLabel, colorInCoordinatesLabel, drawingStatusLabel, shapeTypeLabel, eraserShapeTypeLabel, eraserSizeLabel); // Передаем метки
         if ("ENG".equals(currentText)) {
             ruEng.Eng();
         } else if ("RU".equals(currentText)) {

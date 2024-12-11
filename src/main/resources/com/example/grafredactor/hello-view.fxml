@@ -2,6 +2,8 @@
 
 <?import javafx.scene.canvas.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 
 <GridPane alignment="center" hgap="10" prefHeight="391.0" prefWidth="474.0" vgap="10" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.grafredactor.HelloController">
@@ -15,31 +17,32 @@
         <Pane prefHeight="395.0" prefWidth="481.0">
             <children>
                 <VBox>
-                    <Label text="Координаты мыши:" />
-                    <Label text="Цвет в координатах:" />
-                    <Label text="Тип рисует / не рисует:" />
+                    <Label fx:id="mouseCoordinatesLabel" text="Координаты мыши:" />
+                    <Label fx:id="colorInCoordinatesLabel" text="Цвет в координатах:" />
+                    <Label fx:id="drawingStatusLabel" text="Тип рисует / не рисует:" />
                 </VBox>
                 <Button layoutX="460.0" layoutY="0.0" fx:id="toggleButton" onAction="#toggleLanguage" text="RU" />
                 <FlowPane layoutY="321.0" prefHeight="35.0" prefWidth="433.0" hgap="3" vgap="3">
                     <children>
-                        <Button fx:id="NewLine" mnemonicParsing="false" onAction="#kar" text="Карандаш" />
-                        <Button fx:id="Eraser" mnemonicParsing="false" onAction="#lastik" text="Ластик" />
-                        <Button fx:id="Save" mnemonicParsing="false" onAction="#save" text="Сохранить" />
-                        <Button fx:id="Download" mnemonicParsing="false" onAction="#open" text="Загрузить" />
-                        <Button fx:id="Undo" mnemonicParsing="false" onAction="#undo" text="Отмена" />
+                        <Button fx:id="NewLine" mnemonicParsing="false" onAction="#kar" text="Карандаш" prefWidth="100" />
+                        <Button fx:id="Eraser" mnemonicParsing="false" onAction="#lastik" text="Ластик" prefWidth="100" />
+                        <Button fx:id="Save" mnemonicParsing="false" onAction="#save" text="Сохранить" prefWidth="100" />
+                        <Button fx:id="Download" mnemonicParsing="false" onAction="#open" text="Загрузить" prefWidth="100" />
+                        <Button fx:id="Undo" mnemonicParsing="false" onAction="#undo" text="Отмена" prefWidth="100" />
                         <Slider fx:id="sl" onDragDetected="#click2" />
                         <ColorPicker fx:id="cp" onAction="#act" />
-                        <Button text="←" />
-                        <Button text="→" />
+                        <!-- Замена текста стрелок на ImageView -->
+                        <Button text="←" styleClass="arrow-button" />
+                        <Button text="→" styleClass="arrow-button" />
                     </children>
                 </FlowPane>
 
                 <VBox layoutX="0.0" layoutY="380.0" spacing="10">
-                    <Label text="Выбор формы карандаша:" />
+                    <Label fx:id="shapeTypeLabel" text="Выбор формы карандаша:" />
                     <ComboBox fx:id="shapeType" prefWidth="120.0" />
-                    <Label text="Выбор формы ластика:" />
+                    <Label fx:id="eraserShapeTypeLabel" text="Выбор формы ластика:" />
                     <ComboBox fx:id="eraserShapeType" prefWidth="120.0" />
-                    <Label text="Выбор размера ластика:" />
+                    <Label fx:id="eraserSizeLabel" text="Выбор размера ластика:" />
                     <Slider fx:id="sl2" onDragDetected="#click2" />
                 </VBox>
                 <FlowPane prefHeight="317.0" prefWidth="433.0">
