@@ -75,6 +75,10 @@
             </FlowPane>
          </children>
       </Pane>
-            <Canvas fx:id="canvas" height="400.0" width="300.0" GridPane.columnIndex="1" />
+      <Pane prefHeight="400.0" prefWidth="350.0" style="-fx-border-color: Black;" GridPane.columnIndex="1">
+         <children>
+                  <Canvas fx:id="canvas" height="400.0" width="350.0" />
+         </children>
+      </Pane>
     </children>
 </GridPane>
