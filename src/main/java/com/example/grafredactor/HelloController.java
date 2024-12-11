@@ -127,6 +127,7 @@ public class HelloController {
         colorInCoordinatesLabel.setText("Цвет: " + (color != null ? color.toString() : "Нет цвета"));
     }
 
+
     private void handleMouseMove(MouseEvent mouseEvent) {
         // Обновляем координаты мыши
         mouseCoordinatesLabel.setText(String.format("Координаты: (%.2f, %.2f)", mouseEvent.getX(), mouseEvent.getY()));
