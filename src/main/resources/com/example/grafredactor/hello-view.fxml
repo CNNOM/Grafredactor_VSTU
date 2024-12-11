@@ -39,6 +39,7 @@
                         <Button layoutX="66.0" layoutY="192.0" prefHeight="25.0" prefWidth="32.0" style="-fx-background-color: lavender; -fx-background-radius: 20;" text="→" />
                   </children>
               </Pane>
+
                 <FlowPane layoutX="-7.0" layoutY="222.0" prefHeight="189.0" prefWidth="170.0" style="-fx-background-color: LightGray;">
                <children>
                        <Label fx:id="shapeTypeLabel" text="Выбор формы карандаша:">

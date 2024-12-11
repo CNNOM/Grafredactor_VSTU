@@ -14,6 +14,7 @@ public class RuEng {
     private Button Save;
     private Button Download;
     private Button Undo;
+
     private ComboBox<String> shapeType;
     private ComboBox<String> eraserShapeType;
     private Label mouseCoordinatesLabel;
