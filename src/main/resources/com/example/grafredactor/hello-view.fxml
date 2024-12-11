@@ -26,11 +26,11 @@
                         <Button fx:id="Eraser" mnemonicParsing="false" onAction="#lastik" text="Ластик" />
                         <Button fx:id="Save" mnemonicParsing="false" onAction="#save" text="Сохранить" />
                         <Button fx:id="Download" mnemonicParsing="false" onAction="#open" text="Загрузить" />
-                        <Button fx:id="Undo" mnemonicParsing="false" onAction="#undo" text="Отмена" />
+                        <Button fx:id="Undo" mnemonicParsing="false" onAction="#undo" text="Очистить лист" />
                         <Slider fx:id="sl" onDragDetected="#click2" />
                         <ColorPicker fx:id="cp" onAction="#act" />
-                        <Button text="←" />
-                        <Button text="→" />
+                        <Button fx:id="backButton" text="←" />
+                        <Button fx:id="forwardButton" text="→" />
                     </children>
                 </FlowPane>
 

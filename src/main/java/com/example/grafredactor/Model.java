@@ -32,4 +32,5 @@ public class Model {
     public ArrayList<Shape> getShapes() {
         return shapes; // Возвращает список всех фигур
     }
+
 }

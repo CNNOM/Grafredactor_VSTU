@@ -47,6 +47,11 @@ public class HelloController {
     private ComboBox<String> shapeType;
     @FXML
     private ComboBox<String> eraserShapeType;
+    @FXML
+    private Button backButton;
+    @FXML
+    private Button forwardButton;
+
 
     private String eraserShape = "Круг"; // Форма ластика по умолчанию
     private Model model;
@@ -55,6 +60,8 @@ public class HelloController {
     private String flag;
     private boolean isErasing = false;
     private Stack<Model> history = new Stack<>();
+    private Stack<Shape> undoStack = new Stack<>();
+    private Stack<Shape> redoStack = new Stack<>();
 
     public void initialize() {
         GraphicsContext gc = canvas.getGraphicsContext2D();
@@ -75,6 +82,28 @@ public class HelloController {
 
         // Обработчик изменения выбора формы ластика
         eraserShapeType.setOnAction(event -> eraserShape = eraserShapeType.getValue());
+        backButton.setOnAction(this::undoAction);
+        forwardButton.setOnAction(this::redoAction);
+    }
+
+    // Метод для отмены последнего действия (назад)
+    private void undoAction(ActionEvent actionEvent) {
+        if (!undoStack.isEmpty()) {
+            Shape shape = undoStack.pop(); // Убираем последнюю фигуру из undoStack
+            model.removeShape(shape); // Удаляем фигуру из модели
+            redoStack.push(shape); // Добавляем фигуру в redoStack
+            update(model); // Обновляем холст
+        }
+    }
+
+    // Метод для возврата последнего отменённого действия (вперёд)
+    private void redoAction(ActionEvent actionEvent) {
+        if (!redoStack.isEmpty()) {
+            Shape shape = redoStack.pop(); // Убираем последнюю фигуру из redoStack
+            model.addShape(shape); // Добавляем фигуру обратно в модель
+            undoStack.push(shape); // Добавляем фигуру обратно в undoStack
+            update(model); // Обновляем холст
+        }
     }
 
     public void SliderTol() { // толщина линии
@@ -114,9 +143,13 @@ public class HelloController {
                 selectedColor
         );
 
-        // Добавляем фигуру в модель и рисуем её
+        // Добавляем фигуру в модель и в стек undo
         model.addShape(shape);
+        undoStack.push(shape);
         shape.draw(gc);
+
+        // Очищаем redoStack, так как мы создали новое действие
+        redoStack.clear();
     }
 
     private void erase(MouseEvent mouseEvent) {
@@ -158,6 +191,13 @@ public class HelloController {
                 );
                 break;
         }
+
+        // Добавляем действие ластика в undoStack
+        Shape erasedShape = new Points(mouseEvent.getX(), mouseEvent.getY(), eraserSize, Color.WHITESMOKE);
+        undoStack.push(erasedShape);
+
+        // Очищаем redoStack, так как мы создали новое действие
+        redoStack.clear();
     }
 
     public void open(ActionEvent actionEvent) {
@@ -251,8 +291,9 @@ public class HelloController {
     }
 
     public void undo(ActionEvent actionEvent) {
-        undo();
+        clearCanvas(); // Вызываем метод очистки холста
     }
+
 
     public void undo() {
         if (!history.isEmpty()) {
@@ -263,5 +304,12 @@ public class HelloController {
             GraphicsContext gc = canvas.getGraphicsContext2D();
             gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         }
+    }
+    public void clearCanvas() {
+        GraphicsContext gc = canvas.getGraphicsContext2D();
+        gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight()); // Очищаем холст
+        model.clearShapes(); // Очищаем модель
+        undoStack.clear(); // Очищаем стек отмены
+        redoStack.clear(); // Очищаем стек повтора
     }
 }
