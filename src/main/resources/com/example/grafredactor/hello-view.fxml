@@ -24,9 +24,17 @@
                         <Button fx:id="Undo" mnemonicParsing="false" onAction="#undo" text="Отмена" />
                         <Slider fx:id="sl" onDragDetected="#click2" />
                         <ColorPicker fx:id="cp" onAction="#act" />
-                        <ComboBox fx:id="shapeType" prefWidth="120.0" />
                     </children>
                 </FlowPane>
+
+                <VBox layoutX="0.0" layoutY="380.0" spacing="10">
+                    <Label text="Выбор формы карандаша:" />
+                    <ComboBox fx:id="shapeType" prefWidth="120.0" />
+                    <Label text="Выбор формы ластика:" />
+                    <ComboBox fx:id="eraserShapeType" prefWidth="120.0" />
+                    <Label text="Выбор размера ластика:" />
+                    <Slider fx:id="sl2" onDragDetected="#click2" />
+                </VBox>
                 <FlowPane prefHeight="317.0" prefWidth="433.0">
                     <children>
                         <Canvas fx:id="canvas" height="285.0" width="386.0" />
@@ -35,5 +43,4 @@
             </children>
         </Pane>
     </children>
-
 </GridPane>
