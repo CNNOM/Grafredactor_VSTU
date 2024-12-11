@@ -4,50 +4,52 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<GridPane alignment="center" hgap="10" prefHeight="391.0" prefWidth="474.0" vgap="10" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.grafredactor.HelloController">
+<GridPane alignment="center" hgap="10" prefHeight="412.0" prefWidth="474.0" vgap="10" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.grafredactor.HelloController">
     <columnConstraints>
         <ColumnConstraints />
+      <ColumnConstraints />
+      <ColumnConstraints />
     </columnConstraints>
     <rowConstraints>
         <RowConstraints />
+      <RowConstraints percentHeight="0.0" />
+      <RowConstraints maxHeight="0.0" minHeight="0.0" prefHeight="0.0" />
+      <RowConstraints maxHeight="0.0" minHeight="0.0" prefHeight="0.0" />
     </rowConstraints>
     <children>
-        <Pane prefHeight="511.0" prefWidth="647.0">
-            <children>
-                <VBox>
-                    <Label text="Координаты мыши:" />
-                    <Label text="Цвет в координатах:" />
-                    <Label text="Тип рисует / не рисует:" />
-                </VBox>
-                <Button layoutX="460.0" layoutY="0.0" fx:id="toggleButton" onAction="#toggleLanguage" text="RU" />
-                <FlowPane layoutY="321.0" prefHeight="35.0" prefWidth="433.0" hgap="3" vgap="3">
-                    <children>
-                        <Button fx:id="NewLine" mnemonicParsing="false" onAction="#kar" text="Карандаш" />
-                        <Button fx:id="Eraser" mnemonicParsing="false" onAction="#lastik" text="Ластик" />
-                        <Button fx:id="Save" mnemonicParsing="false" onAction="#save" text="Сохранить" />
-                        <Button fx:id="Download" mnemonicParsing="false" onAction="#open" text="Загрузить" />
-                        <Button fx:id="Undo" mnemonicParsing="false" onAction="#undo" text="Отмена" />
+      <Pane>
+         <children>
+              <Pane layoutX="-7.0" prefHeight="255.0" prefWidth="193.0" style="-fx-background-color: Lightgrey;">
+                  <children>
+                      <VBox />
+                        <Button fx:id="NewLine" layoutY="93.0" mnemonicParsing="false" onAction="#kar" text="Карандаш" />
+                        <Button fx:id="Eraser" layoutX="73.0" layoutY="93.0" mnemonicParsing="false" onAction="#lastik" text="Ластик" />
+                        <Button fx:id="Save" layoutX="-1.0" layoutY="128.0" mnemonicParsing="false" onAction="#save" text="Сохранить" />
+                        <Button fx:id="Download" layoutX="72.0" layoutY="128.0" mnemonicParsing="false" onAction="#open" prefHeight="26.0" prefWidth="89.0" text="Загрузить" />
+                        <ColorPicker fx:id="cp" layoutY="164.0" onAction="#act" />
+      
+                      <VBox layoutX="0.0" layoutY="380.0" spacing="10" />
+                       <Label layoutX="-1.0" layoutY="48.0" text="Тип рисует / не рисует:" />
+                       <Label layoutX="-1.0" layoutY="31.0" text="Цвет в координатах:" />
+                       <Label layoutX="1.0" layoutY="14.0" text="Координаты мыши:" />
+                        <Button layoutX="6.0" layoutY="204.0" prefHeight="19.0" prefWidth="31.0" text="←" />
+                        <Button layoutX="42.0" layoutY="204.0" text="→" />
+                  </children>
+              </Pane>
+                <FlowPane layoutX="-7.0" layoutY="248.0" prefHeight="164.0" prefWidth="193.0" style="-fx-background-color: LightGray;">
+               <children>
+                       <Label text="Выбор формы карандаша:" />
+                       <ComboBox fx:id="shapeType" prefHeight="5.0" prefWidth="116.0" />
                         <Slider fx:id="sl" onDragDetected="#click2" />
-                        <ColorPicker fx:id="cp" onAction="#act" />
-                        <Button text="←" />
-                        <Button text="→" />
-                    </children>
-                </FlowPane>
-
-                <VBox layoutX="0.0" layoutY="380.0" spacing="10">
-                    <Label text="Выбор формы карандаша:" />
-                    <ComboBox fx:id="shapeType" prefWidth="120.0" />
-                    <Label text="Выбор формы ластика:" />
-                    <ComboBox fx:id="eraserShapeType" prefWidth="120.0" />
-                    <Label text="Выбор размера ластика:" />
-                    <Slider fx:id="sl2" onDragDetected="#click2" />
-                </VBox>
-                <FlowPane prefHeight="317.0" prefWidth="433.0">
-                    <children>
-                        <Canvas fx:id="canvas" height="285.0" width="386.0" />
-                    </children>
-                </FlowPane>
-            </children>
-        </Pane>
+                       <Label text="Выбор формы ластика:" />
+                       <ComboBox fx:id="eraserShapeType" prefWidth="120.0" />
+                       <Label text="Выбор размера ластика:" />
+                       <Slider fx:id="sl2" onDragDetected="#click2" prefHeight="14.0" prefWidth="133.0" />
+                      <Button fx:id="toggleButton" onAction="#toggleLanguage" text="RU" />
+               </children>
+            </FlowPane>
+         </children>
+      </Pane>
+            <Canvas fx:id="canvas" height="237.0" width="283.0" GridPane.columnIndex="1" />
     </children>
 </GridPane>
