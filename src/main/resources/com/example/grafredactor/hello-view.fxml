@@ -14,20 +14,39 @@
     <children>
         <Pane prefHeight="511.0" prefWidth="647.0">
             <children>
-                <FlowPane layoutX="4.0" layoutY="2.0" prefHeight="35.0" prefWidth="433.0">
-               <children>
-                                    <Button fx:id="NewLine" mnemonicParsing="false" onAction="#kar" style="-fx-background-color: Lavender; -fx-background-radius: 15;" text="✎" />
-               </children></FlowPane>
-                <FlowPane layoutX="144.0" layoutY="3.0" prefHeight="382.0" prefWidth="405.0">
+                <VBox>
+                    <Label text="Координаты мыши:" />
+                    <Label text="Цвет в координатах:" />
+                    <Label text="Тип рисует / не рисует:" />
+                </VBox>
+                <Button layoutX="460.0" layoutY="0.0" fx:id="toggleButton" onAction="#toggleLanguage" text="RU" />
+                <FlowPane layoutY="321.0" prefHeight="35.0" prefWidth="433.0" hgap="3" vgap="3">
                     <children>
-                        <Canvas fx:id="canvas" height="286.0" onMouseClicked="#clik_canvas" onMouseDragged="#print" width="314.0" />
+                        <Button fx:id="NewLine" mnemonicParsing="false" onAction="#kar" text="Карандаш" />
+                        <Button fx:id="Eraser" mnemonicParsing="false" onAction="#lastik" text="Ластик" />
+                        <Button fx:id="Save" mnemonicParsing="false" onAction="#save" text="Сохранить" />
+                        <Button fx:id="Download" mnemonicParsing="false" onAction="#open" text="Загрузить" />
+                        <Button fx:id="Undo" mnemonicParsing="false" onAction="#undo" text="Отмена" />
+                        <Slider fx:id="sl" onDragDetected="#click2" />
+                        <ColorPicker fx:id="cp" onAction="#act" />
+                        <Button text="←" />
+                        <Button text="→" />
                     </children>
                 </FlowPane>
-                              <Button layoutX="3.0" layoutY="72.0" mnemonicParsing="false" onAction="#save" style="-fx-background-radius: 15; -fx-background-color: Lavender;" text="💾 " />
-                              <Button layoutX="3.0" layoutY="37.0" mnemonicParsing="false" onAction="#lastik" style="-fx-background-color: Lavender; -fx-background-radius: 15;" text="⌫" />
-                              <Button layoutX="5.0" layoutY="105.0" mnemonicParsing="false" onAction="#open" style="-fx-background-color: Lavender; -fx-background-radius: 15;" text="📤 " />
-                              <Slider fx:id="sl" layoutX="4.0" layoutY="138.0" onDragDetected="#click2" style="-fx-background-color: Lavender;" />
-                      <ColorPicker fx:id="cp" layoutX="4.0" layoutY="161.0" onAction="#act" style="-fx-background-color: Lavender; -fx-background-radius: 15;" />
+
+                <VBox layoutX="0.0" layoutY="380.0" spacing="10">
+                    <Label text="Выбор формы карандаша:" />
+                    <ComboBox fx:id="shapeType" prefWidth="120.0" />
+                    <Label text="Выбор формы ластика:" />
+                    <ComboBox fx:id="eraserShapeType" prefWidth="120.0" />
+                    <Label text="Выбор размера ластика:" />
+                    <Slider fx:id="sl2" onDragDetected="#click2" />
+                </VBox>
+                <FlowPane prefHeight="317.0" prefWidth="433.0">
+                    <children>
+                        <Canvas fx:id="canvas" height="285.0" width="386.0" />
+                    </children>
+                </FlowPane>
             </children>
         </Pane>
     </children>
