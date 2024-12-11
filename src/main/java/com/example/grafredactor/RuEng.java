@@ -25,21 +25,21 @@ public class RuEng {
 
     public void Eng() {
         toggleButton.setText("RU");
-        NewLine.setText("Карандаш");
-        Eraser.setText("Ластик");
-        Save.setText("Сохранить");
-        Download.setText("Загрузить");
-        Undo.setText("Отмена"); // Обновляем текст кнопки "Undo"
+        NewLine.setText("✎");
+        Eraser.setText("⌫");
+        Save.setText("\uD83D\uDCBE");
+        Download.setText("\uD83D\uDCE5");
+//        Undo.setText("Отмена"); // Обновляем текст кнопки "Undo"
         System.out.println("Language set to RUSSIA");
     }
 
     public void Ru() {
         toggleButton.setText("ENG");
-        NewLine.setText("NewLine");
-        Eraser.setText("Eraser");
-        Save.setText("Save");
-        Download.setText("Download");
-        Undo.setText("Undo"); // Обновляем текст кнопки "Undo"
+        NewLine.setText("✎");
+        Eraser.setText("⌫");
+        Save.setText("\uD83D\uDCBE");
+        Download.setText("\uD83D\uDCE5");
+//        Undo.setText("Undo"); // Обновляем текст кнопки "Undo"
         System.out.println("Language set to English");
     }
 }
