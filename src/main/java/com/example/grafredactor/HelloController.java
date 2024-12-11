@@ -67,6 +67,7 @@ public class HelloController {
     private double bgX, bgY, bgW = 300.0, bgH = 300.0;
     private String flag;
     private boolean isErasing = false;
+    private boolean isDrawing = false;
     private Stack<Model> history = new Stack<>();
 
     public void initialize() {
@@ -87,6 +88,10 @@ public class HelloController {
         canvas.setOnMouseClicked(this::handleMouseClick);
         canvas.setOnMouseDragged(this::handleMouseDrag);
 
+        canvas.setOnMouseMoved(this::handleMouseMove); // Обработчик движения мыши
+        canvas.setOnMousePressed(this::handleMousePress); // Обработчик нажатия мыши
+        canvas.setOnMouseReleased(this::handleMouseRelease); // Обработчик отпускания мыши
+
         // Обработчик изменения выбора формы ластика
         eraserShapeType.setOnAction(event -> eraserShape = eraserShapeType.getValue());
     }
@@ -101,16 +106,56 @@ public class HelloController {
     private void handleMouseClick(MouseEvent mouseEvent) {
         if (isErasing) {
             erase(mouseEvent);
+            mouseCoordinatesLabel.setText(String.format("Координаты: (%.2f, %.2f)", mouseEvent.getX(), mouseEvent.getY()));
         } else {
             drawShape(mouseEvent);
+            mouseCoordinatesLabel.setText(String.format("Координаты: (%.2f, %.2f)", mouseEvent.getX(), mouseEvent.getY()));
         }
+        Color color = getColorAt(mouseEvent.getX(), mouseEvent.getY());
+        colorInCoordinatesLabel.setText("Цвет: " + (color != null ? color.toString() : "Нет цвета"));
     }
 
     private void handleMouseDrag(MouseEvent mouseEvent) {
         if (isErasing) {
             erase(mouseEvent);
+            mouseCoordinatesLabel.setText(String.format("Координаты: (%.2f, %.2f)", mouseEvent.getX(), mouseEvent.getY()));
         } else {
             drawShape(mouseEvent);
+            mouseCoordinatesLabel.setText(String.format("Координаты: (%.2f, %.2f)", mouseEvent.getX(), mouseEvent.getY()));
+        }
+        Color color = getColorAt(mouseEvent.getX(), mouseEvent.getY());
+        colorInCoordinatesLabel.setText("Цвет: " + (color != null ? color.toString() : "Нет цвета"));
+    }
+
+    private void handleMouseMove(MouseEvent mouseEvent) {
+        // Обновляем координаты мыши
+        mouseCoordinatesLabel.setText(String.format("Координаты: (%.2f, %.2f)", mouseEvent.getX(), mouseEvent.getY()));
+
+        // Получаем цвет под курсором
+        Color color = getColorAt(mouseEvent.getX(), mouseEvent.getY());
+        colorInCoordinatesLabel.setText("Цвет: " + (color != null ? color.toString() : "Нет цвета"));
+
+        // Обновляем статус рисования
+        updateDrawingStatus();
+    }
+
+    private void handleMousePress(MouseEvent mouseEvent) {
+        // Устанавливаем флаг рисования
+        isDrawing = true;
+
+        // Устанавливаем статус рисования
+        drawingStatusLabel.setText(isErasing ? "Статус: Стирает" : "Статус: Рисует");
+    }
+
+    private void handleMouseRelease(MouseEvent mouseEvent) {
+        // Сбрасываем флаг рисования
+        isDrawing = false;
+
+        // Устанавливаем статус рисования
+        if (isErasing) {
+            drawingStatusLabel.setText("Статус: Не стирает");
+        } else {
+            drawingStatusLabel.setText("Статус: Не рисует");
         }
     }
 
@@ -220,6 +265,15 @@ public class HelloController {
         for (Shape shape : model.getShapes()) {
             shape.draw(gc);
         }
+    }
+
+    private Color getColorAt(double x, double y) {
+        WritableImage snapshot = canvas.snapshot(null, null);
+        return snapshot.getPixelReader().getColor((int) x, (int) y);
+    }
+
+    private void updateDrawingStatus() {
+        drawingStatusLabel.setText(isErasing ? "Статус: Не cтирает" : "Статус: Не рисует");
     }
 
     private boolean isPointInEraserArea(Points point, Points eraserPoint) {
