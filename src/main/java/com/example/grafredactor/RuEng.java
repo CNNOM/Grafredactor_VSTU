@@ -14,6 +14,7 @@ public class RuEng {
     private Button Save;
     private Button Download;
     private Button Undo;
+
     private ComboBox<String> shapeType;
     private ComboBox<String> eraserShapeType;
     private Label mouseCoordinatesLabel;
@@ -92,6 +93,11 @@ public class RuEng {
     // Метод для переключения на русский язык
     public void Eng() {
         toggleButton.setText("RU");
+        NewLine.setText("✎");
+        Eraser.setText("⌫");
+        Save.setText("\uD83D\uDCBE");
+        Download.setText("\uD83D\uDCE5");
+//        Undo.setText("Отмена"); // Обновляем текст кнопки "Undo"
         updateButtons("RU");
         updateComboBox(shapeType, "ShapeType_RU");
         updateComboBox(eraserShapeType, "EraserShapeType_RU");
@@ -102,6 +108,11 @@ public class RuEng {
     // Метод для переключения на английский язык
     public void Ru() {
         toggleButton.setText("ENG");
+        NewLine.setText("✎");
+        Eraser.setText("⌫");
+        Save.setText("\uD83D\uDCBE");
+        Download.setText("\uD83D\uDCE5");
+//        Undo.setText("Undo"); // Обновляем текст кнопки "Undo"
         updateButtons("ENG");
         updateComboBox(shapeType, "ShapeType_ENG");
         updateComboBox(eraserShapeType, "EraserShapeType_ENG");
