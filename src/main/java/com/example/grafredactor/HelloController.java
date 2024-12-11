@@ -40,11 +40,15 @@ public class HelloController {
     @FXML
     private Slider sl;
     @FXML
+    private Slider sl2;
+    @FXML
     private Canvas canvas;
     @FXML
     private ComboBox<String> shapeType;
+    @FXML
+    private ComboBox<String> eraserShapeType;
 
-
+    private String eraserShape = "Круг"; // Форма ластика по умолчанию
     private Model model;
     private Image bgImage;
     private double bgX, bgY, bgW = 300.0, bgH = 300.0;
@@ -61,9 +65,16 @@ public class HelloController {
         shapeType.getItems().addAll("Круг", "Квадрат", "Треугольник", "Точка");
         shapeType.setValue("Круг");
 
+        // Добавляем варианты форм ластика
+        eraserShapeType.getItems().addAll("Круг", "Квадрат", "Треугольник", "Точка");
+        eraserShapeType.setValue("Круг");
+
         // Устанавливаем обработчики событий
         canvas.setOnMouseClicked(this::handleMouseClick);
         canvas.setOnMouseDragged(this::handleMouseDrag);
+
+        // Обработчик изменения выбора формы ластика
+        eraserShapeType.setOnAction(event -> eraserShape = eraserShapeType.getValue());
     }
 
     public void SliderTol() { // толщина линии
@@ -110,16 +121,43 @@ public class HelloController {
 
     private void erase(MouseEvent mouseEvent) {
         GraphicsContext gc = canvas.getGraphicsContext2D();
-        double eraserSize = sl.getValue();
+        double eraserSize = sl2.getValue();
         gc.setFill(Color.WHITESMOKE);
 
-        // Стираем область
-        gc.fillOval(
-                mouseEvent.getX() - eraserSize / 2,
-                mouseEvent.getY() - eraserSize / 2,
-                eraserSize,
-                eraserSize
-        );
+        // Выбираем форму ластика
+        switch (eraserShape) {
+            case "Круг":
+                gc.fillOval(
+                        mouseEvent.getX() - eraserSize / 2,
+                        mouseEvent.getY() - eraserSize / 2,
+                        eraserSize,
+                        eraserSize
+                );
+                break;
+            case "Квадрат":
+                gc.fillRect(
+                        mouseEvent.getX() - eraserSize / 2,
+                        mouseEvent.getY() - eraserSize / 2,
+                        eraserSize,
+                        eraserSize
+                );
+                break;
+            case "Треугольник":
+                gc.fillPolygon(
+                        new double[]{mouseEvent.getX(), mouseEvent.getX() - eraserSize / 2, mouseEvent.getX() + eraserSize / 2},
+                        new double[]{mouseEvent.getY() - eraserSize / 2, mouseEvent.getY() + eraserSize / 2, mouseEvent.getY() + eraserSize / 2},
+                        3
+                );
+                break;
+            case "Точка":
+                gc.fillRect(
+                        mouseEvent.getX(),
+                        mouseEvent.getY(),
+                        1,
+                        1
+                );
+                break;
+        }
     }
 
     public void open(ActionEvent actionEvent) {
