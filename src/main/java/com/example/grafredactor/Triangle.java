@@ -1,12 +1,13 @@
 package com.example.grafredactor;
 
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
-public class Points extends Shape {
-    private double size; // Размер точки
+import javafx.scene.canvas.GraphicsContext;
 
-    public Points(double x, double y, double size, Color color) {
+public class Triangle extends Shape {
+    private double size;
+
+    public Triangle(double x, double y, double size, Color color) {
         super(x, y, color);
         this.size = size;
     }
@@ -14,8 +15,9 @@ public class Points extends Shape {
     @Override
     public void draw(GraphicsContext gc) {
         gc.setFill(color);
-        // Рисуем точку как круг с минимальным радиусом
-        gc.fillOval(x - size / 2, y - size / 2, size, size);
+        double[] xPoints = {x, x - size / 2, x + size / 2};
+        double[] yPoints = {y - size, y + size / 2, y + size / 2};
+        gc.fillPolygon(xPoints, yPoints, 3);
     }
 
     // Геттеры и сеттеры

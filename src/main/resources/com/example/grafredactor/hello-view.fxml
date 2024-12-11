@@ -14,8 +14,13 @@
     <children>
         <Pane prefHeight="395.0" prefWidth="481.0">
             <children>
+                <VBox>
+                    <Label text="Координаты мыши:" />
+                    <Label text="Цвет в координатах:" />
+                    <Label text="Тип рисует / не рисует:" />
+                </VBox>
                 <Button layoutX="460.0" layoutY="0.0" fx:id="toggleButton" onAction="#toggleLanguage" text="RU" />
-                <FlowPane layoutY="321.0" prefHeight="35.0" prefWidth="433.0">
+                <FlowPane layoutY="321.0" prefHeight="35.0" prefWidth="433.0" hgap="3" vgap="3">
                     <children>
                         <Button fx:id="NewLine" mnemonicParsing="false" onAction="#kar" text="Карандаш" />
                         <Button fx:id="Eraser" mnemonicParsing="false" onAction="#lastik" text="Ластик" />
@@ -23,16 +28,26 @@
                         <Button fx:id="Download" mnemonicParsing="false" onAction="#open" text="Загрузить" />
                         <Button fx:id="Undo" mnemonicParsing="false" onAction="#undo" text="Отмена" />
                         <Slider fx:id="sl" onDragDetected="#click2" />
+                        <ColorPicker fx:id="cp" onAction="#act" />
+                        <Button text="←" />
+                        <Button text="→" />
                     </children>
                 </FlowPane>
+
+                <VBox layoutX="0.0" layoutY="380.0" spacing="10">
+                    <Label text="Выбор формы карандаша:" />
+                    <ComboBox fx:id="shapeType" prefWidth="120.0" />
+                    <Label text="Выбор формы ластика:" />
+                    <ComboBox fx:id="eraserShapeType" prefWidth="120.0" />
+                    <Label text="Выбор размера ластика:" />
+                    <Slider fx:id="sl2" onDragDetected="#click2" />
+                </VBox>
                 <FlowPane prefHeight="317.0" prefWidth="433.0">
                     <children>
-                        <Canvas fx:id="canvas" height="285.0" onMouseClicked="#clik_canvas" onMouseDragged="#print" width="386.0" />
-                    </children></FlowPane>
-                <ColorPicker fx:id="cp" layoutX="29.0" layoutY="356.0" onAction="#act" />
-
+                        <Canvas fx:id="canvas" height="285.0" width="386.0" />
+                    </children>
+                </FlowPane>
             </children>
         </Pane>
     </children>
-
 </GridPane>
