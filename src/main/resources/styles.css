@@ -1,0 +1,31 @@
+/* В файле styles.css */
+.arrow-button {
+    -fx-min-width: 30px;
+    -fx-min-height: 30px;
+    -fx-padding: 0;
+    -fx-font-size: 16px;
+}
+
+/* Локализация текста всплывающего окна ColorPicker */
+.color-picker .color-picker-popup .label {
+    -fx-text-fill: black; /* Цвет текста */
+}
+
+.color-picker .color-picker-popup .button {
+    -fx-text-fill: black; /* Цвет текста кнопок */
+}
+
+/* Локализация текста "Custom Color" */
+.color-picker .color-picker-popup .label:custom-color {
+    -fx-text: "Пользовательский цвет"; /* Русский текст */
+}
+
+/* Локализация текста кнопки "OK" */
+.color-picker .color-picker-popup .button:ok {
+    -fx-text: "OK"; /* Текст кнопки "OK" */
+}
+
+/* Локализация текста кнопки "Cancel" */
+.color-picker .color-picker-popup .button:cancel {
+    -fx-text: "Отмена"; /* Текст кнопки "Cancel" */
+}
